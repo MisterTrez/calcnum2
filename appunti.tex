@@ -103,7 +103,7 @@ dove:
 % TODO: disegno
 
 \subsection{Sostituzione dell'operatore differenziale}
-Data ad esempio $ t \in U_{N} $, neanche $ f \left( t, u(t) \right) = u'(t) $ \`e verificabile al computer poich\'e in generale
+Data ad esempio $ t \in M_{N} $, neanche $ f \left( t, u(t) \right) = u'(t) $ \`e verificabile al computer poich\'e in generale
 
 \[ u'(t) = \lim\limits_{h \to 0} \frac{u(t + h) - u(t)}{h} \]
 
@@ -243,7 +243,7 @@ poich\'e $ -i(u + iv) = -i u + v $. Questo corrisponde all'esempio $ 1. $ in $ \
 Le applicazioni e le soluzioni generali degli esempi nel paragrafo precedente suggeriscono di porre ulteriori condizioni per individuare una soluzione di un'equazione differenziale ordinaria.
 
 \subsection{Problema ai valori iniziali}
-Siano $ d, k \in \mathbb{N} $, $ \Omega \subseteq \mathbb{R} \times \mathbb{R}^{kd} $ dominio aperto e connesso. Sia $ f: \Omega \to \mathbb{R}^{d} $, $ (t_{0}, v_{0}, \dotsc, v_{k-1}) \in \Omega $, $ t_{0} < T $ e $ I = [t_{0}, T] $.
+Siano $ d, k \in \mathbb{N} $, $ \Omega \subseteq \mathbb{R} \times \mathbb{R}^{kd} $ dominio aperto e connesso. Sia $ f: \Omega \to \mathbb{R}^{d} $, $ (t_{0}, v_{0}, \dotsc, v_{k-1}) \in \overline\Omega $, $ t_{0} < T $ e $ I = [t_{0}, T] $.
 
 Una funzione $ u: I \to \mathbb{R}^{d} $ si dice soluzione di $ u^{(k)} = f(\cdot, u^{(0)}, \dotsc, u^{(k-1)}) $ con $ u^{(i)} (t_{0}) = v_{i} $ con $ i = 0, \dotsc, k - 1 $ se:
 \begin{enumerate}
@@ -339,7 +339,7 @@ Poich\'e il problema discreto discende dal problema continuo e si spera che lo "
 \item[2b.] nessuna perturbazione nei dati, quindi nessuna perturbazione nella soluzione.  
 \end{enumerate}
 
-In altre parole, prima di comprendere il punto 3 bisogna comprendere il punto 2.
+In altre parole, prima di comprendere il punto 4 bisogna comprendere il punto 2.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -363,7 +363,7 @@ ha un'unica soluzione massimale $ u(t_{0}, v) : [t_{0}, T(t_{0}, v)] \to \mathbb
 
 Si pone quindi, $ \forall\ t \in [t_{0}, T(t_{0}, v)] $
 
-\[ \varphi(t, t_{0}) v = u_{(t_{0}, v)} (t) \]
+\[ \varphi(t, t_{0}) v := u{(t_{0}, v)} (t) \]
 
 chiamata evoluzione di $ f $.
 
@@ -378,7 +378,7 @@ chiamata evoluzione di $ f $.
 
 \subsection{Metodi a un passo}
 
-Siano $ \Omega, f $ e $ \varphi $ come nel capitolo precedente. Un metodo ad un passo associa a $ f $ una funzione incremento $ F = F(t, z, \tau), \forall\ (t, z) \in \Omega, \tau \in [0, \tau(t, z)] $ con $ \tau(t, z) > 0 $. Posto
+Siano $ \Omega, f $ e $ \varphi $ come nel capitolo precedente. Un metodo ad un passo associa a $ f $ una funzione incremento $ F = F(t, z, \tau), \forall\ (t, z) \in {interno}\Omega, \tau \in [0, \tau(t, z)] $ con $ \tau(t, z) > 0 $. Posto
 
 \[ \Phi (t_{1}, t_{2}) v = v + (t_{2} - t_{1}) F(t_{1}, v, t_{2} - t_{1}) \]
 
@@ -427,7 +427,7 @@ Analisi
 Sia $ f: [0, \tau^{\ast}] \to \mathbb{R}^{d} $ e $ b: [0, \tau^{\ast}] \to \mathbb{R}^{\ast} = \mathbb{R} \setminus \{ 0 \} $.
 
 \begin{itemize}
-\item $ f = O (b) $ per $ \tau \to 0 $ se $ \exists\ C \ge 0, \tau_{0} \in (0, \tau^{\ast}) : \vert f(\tau) \vert \le C b(\tau) $
+\item $ f = O (b) $ per $ \tau \to 0 $ se $ \exists\ C \ge 0, \tau_{0} \in (0, \tau^{\ast}) : \vert f(\tau) \vert \le C b(\tau) \forall \tau \in (0,\tau_0)$
 \item $ f = o(b) $ per $ \tau \to 0 $ se $ \lim\limits_{\tau \to 0^{+}} \frac{\vert f(\tau) \vert}{b(\tau)} = 0 $
 \end{itemize}
 
@@ -446,7 +446,7 @@ Sia $ f: [0, \tau^{\ast}] \to \mathbb{R}^{d} $ e $ b: [0, \tau^{\ast}] \to \math
 Un metodo ad un passo con $ \Phi $ e $ F $ si dice consistente per $ u' = f(\cdot, u) $ se una delle seguenti condizioni equivalenti \`e soddisfatta:
 
 \begin{enumerate}
-\item $ \forall\ (t, z) \in \Omega, \lim\limits_{\tau \to 0^{+}} \frac{\mathrm{d}}{\mathrm{d} \tau} \Phi(t + \tau, t)z = f(t, z) $
+\item $ \forall\ (t, z) \in \Omega,  \frac{\mathrm{d}}{\mathrm{d} \tau} \Phi(t + \tau, t)z = f(t, z) $
 \item $ \forall\ (t, z) \in \Omega, \lim\limits_{\tau \to 0} F(t, z, \tau) = f(t, z) $
 \item $ \forall\ (t, z) \in \Omega, \varepsilon(t, z, \tau) \defeq \varphi(t + \tau, t)z - \Phi(t + \tau, t)z = o(\tau) $ per $ \tau \to 0 $
 \end{enumerate}
@@ -456,9 +456,9 @@ Si osserva che $ \varepsilon(t, z, \tau) \defeq \varphi(t + \tau, t)z - [z + \ta
 \begin{proof}
 \noindent
 \begin{itemize}
-\item[$ 1. \implies 2. $] $ \lim\limits_{\tau \to 0} F(t, z, \tau) = \lim\limits_{\tau \to 0} \frac{\Phi (t + \tau, t)z - z}{\tau} = \lim\limits_{\tau \to 0^{+}} \Phi(t + \tau, t)z \stackrel{1.}{=} f(t, z) $
-\item[$ 2. \implies 3. $] $ \varepsilon(t, \tau, z) = \varphi(t + \tau, t) z - \Phi(t + \tau, t) z = z + \int\limits_{t}^{t + \tau} f(s, \varphi(t + s)) \, \mathrm{d}s - {[z + \tau F(t, z, \tau)]} = \int\limits_{t}^{t + \tau} f(s, \varphi(t + s)) - F(t, z, \tau) \, \mathrm{d}s = {\underbrace{\int\limits_{t}^{t + \tau} \underbrace{f(s + t, \underbrace{\varphi(t + s, t)z}_{= z + o(1) \text{ per } \tau \to 0}) - f(t, z)}_{= o(1)} \, \mathrm{d}s}_{= o(\tau)}} + {\underbrace{\int\limits_{t}^{t + \tau} \underbrace{f(t, z) - F(t, z, \tau)}_{= o(1) \text{ per } \tau \to 0} \, \mathrm{d}s}_{= o(\tau)}} $
-\item[$ 3. \implies 1. $] $ \lim\limits_{\tau \to 0} \frac{\mathrm{d}}{\mathrm{d} \tau} \Phi(t + \tau, t)z = \lim\limits_{\tau \to 0} \frac{\Phi(t + \tau, t)z - z}{\tau} = \lim\limits_{\tau \to 0} \frac{\varphi(t + \tau, t)z - z}{\tau} - \frac{\overbrace{\varepsilon(t , z, \tau)}^{o(\tau)}}{\tau} = f(t, z) + 0 $
+\item[$ 1. \implies 2. $] $ \lim\limits_{\tau \to 0^{+}} F(t, z, \tau) = \lim\limits_{\tau \to 0^{+}} \frac{\Phi (t + \tau, t)z - z}{\tau} = \lim\limits_{\tau \to 0^{+}} \Phi(t + \tau, t)z \stackrel{1.}{=} f(t, z) $
+\item[$ 2. \implies 3. $] $ \varepsilon(t, \tau, z) = \varphi(t + \tau, t) z - \Phi(t + \tau, t) z = z + \int\limits_{t}^{t + \tau} f(s, \varphi(t + s,t)) \, \mathrm{d}s - {[z + \tau F(t, z, \tau)]} = \int\limits_{t}^{t + \tau} f(s, \varphi(t + s,t)) - F(t, z, \tau) \, \mathrm{d}s = {\underbrace{\int\limits_{0}^{0 + \tau} \underbrace{f(s, \underbrace{\varphi(t + s, t)}_{= z + o(1) \text{ per } \tau \to 0}) - f(t, z)}_{= o(1)} \, \mathrm{d}s}_{= o(\tau)}} + {\underbrace{\int\limits_{t}^{t + \tau} \underbrace{f(t, z) - F(t, z, \tau)}_{= o(1) \text{ per } \tau \to 0} \, \mathrm{d}s}_{= o(\tau)}} $
+\item[$ 3. \implies 1. $] $ \frac{\mathrm{d}}{\mathrm{d} \tau} \Phi(t + \tau, t)z = \lim\limits_{\tau \to 0} \frac{\Phi(t + \tau, t)z - z}{\tau} = \lim\limits_{\tau \to 0} \frac{\varphi(t + \tau, t)z - z}{\tau} - \frac{\overbrace{\varepsilon(t , z, \tau)}^{o(\tau)}}{\tau} = f(t, z) + 0 $
 \end{itemize}
 \end{proof}
 
@@ -467,7 +467,7 @@ Dato $ (t, z) \in \Omega $, si scrive
 
 \[ u(t + \tau) = \Phi(t + \tau, t) z \]
 
-Si ha, per $ \tau \to 0 $, che $ \varepsilon_{EE} (t, z) = u(t + \tau) - [u(t) + \tau f(t, u(t))] = u(t + \tau) - u(t) - \tau u'(t) = \int\limits_{t}^{t + \tau} u'(s) \, \mathrm{d}s - \tau u'(t) = \underbrace{\int\limits_{t}^{t + \tau} \underbrace{u'(s) - u'(t)}_{= o(1) \text{ se $ u $ continua in } t} \, \mathrm{d}s}_{O(\vert s - t \vert) = O(\tau^{2})} = o(\tau) $
+Si ha, per $ \tau \to 0 $, che $ \varepsilon_{EE} (t, z) = u(t + \tau) - [u(t) + \tau f(t, u(t))] = u(t + \tau) - u(t) - \tau u'(t) = \int\limits_{t}^{t + \tau} u'(s) \, \mathrm{d}s - \tau u'(t) = \underbrace{\int\limits_{t}^{t + \tau} \underbrace{u'(s) - u'(t)}_{= o(1) \text{ se $ u $ continua in } t} \, \mathrm{d}s}_{O(\vert s - t \vert) = O(\tau^{2})} = o(\tau) se $u'$ è lip. $
 
 \section{Un metodo di ordine superiore}
 \subsection{Un ordine di pi\`u per $ \varepsilon $. L'errore di consistenza}
@@ -478,7 +478,7 @@ $ u(t + h) - u(t - h) = u(t) + h u'(t) + \frac{1}{2} h^{2} u''(t) + \frac{1}{6} 
 ovvero
 
 \begin{equation}
-u'(t) = \frac{u(t + h) - u(t - h)}{2h} + O(h^{3})
+u'(t) = \frac{u(t + h) - u(t - h)}{2h} + O(h^{2})
 \end{equation} 
 
 Sia $ t_{0} < t_{1} < \dotsb < t_{N} = T $ uan griglia e $ \tau_{n} = t_{n + 1} - t_{n} $, con $ n = 0, \dotsc, N - 1 $. Ponendo $ \tau_{n} = \frac{h}{2} $ conduce a $ \frac{u(t_{n + 1}) - u(t_{n})}{\tau_{n}} = u' \left( t_{n} + \frac{\tau_{n}}{2} \right) + O(\tau_{n}^{2}) = f(t_{n} + \frac{\tau_{n}}{2}, u \left( t_{n} + \frac{\tau_{n}}{2} \right)  + O(\tau_{n}^{2}) $. Il problema \`e che $ t_{n} + \frac{\tau_{n}}{2} $ non \`e un punto della griglia, quindi approssimando $ u \left( t_{n} + \frac{\tau_{n}}{2} \right) $ con il metodo di Eulero esplicito con passo $ \frac{\tau_{n}}{2} $ si ottiene 
@@ -487,11 +487,11 @@ Sia $ t_{0} < t_{1} < \dotsb < t_{N} = T $ uan griglia e $ \tau_{n} = t_{n + 1} 
 
 e, supponendo che $ f = f(t, z) $ \`e Lipschitz rispetto a $ z $, si ottiene
 
-\[ f \left( t_{n} + \frac{\tau_{n}}{2}, u \left(t_{n} + \frac{\tau_{n}}{2} \right) \right) = f(t_{n} + \frac{\tau_{n}}{2}, u(t_{n} + \frac{\tau_{n}}{2} f(t_{n}, u(t_{n}) ) + O(\tau_{n}^{2})  \]
+\[ f \left( t_{n} + \frac{\tau_{n}}{2}, u \left(t_{n} + \frac{\tau_{n}}{2} \right) \right) = f(t_{n} + \frac{\tau_{n}}{2}, u(t_{n} + \frac{\tau_{n}}{2} f(t_{n}, u(t_{n}) ) ) + O(\tau_{n}^{2})  \]
 
 Riassumendo, si ha sotto le ipotesi fatte, per $ \tau \to 0 $
 
-\[ \frac{u(t_{n + 1}) - u(t_{n})}{2 \tau_{n}} = f \left( t_{n} + \frac{\tau_{n}}{2}, u(t_{n}) + \frac{\tau_{n}}{2} f(t_{n}, u(t_{n}) \right) + O(\tau_{n}^{2} \]
+\[ \frac{u(t_{n + 1}) - u(t_{n})}{2 \tau_{n}} = f \left( t_{n} + \frac{\tau_{n}}{2}, u(t_{n}) + \frac{\tau_{n}}{2} f(t_{n}, u(t_{n}) \right) + O(\tau_{n}^{2}) \]
 
 Questo suggerisce il cosiddetto metodo di Eulero modificato
 
@@ -523,7 +523,7 @@ In un problema dove $ f $ \`e Lipschitz rispetto a  $ z $ e $ u $ tre volte deri
 \section{Velocit\`a di convergenza e dipendenza dalla regolarit\`a}
 \subsection{Eulero esplicito vs. Eulero modificato}
 
-Nella seguente tabella viene mostrato il costo in termini di valutazion edella $ f $ dei metodi di Eulero esplicito ed Eulero modificato per raggiungere un dato livello di errore relativo (\S 9.3)
+Nella seguente tabella viene mostrato il costo in termini di valutazione e della $ f $ dei metodi di Eulero esplicito ed Eulero modificato per raggiungere un dato livello di errore relativo (\S 9.3)
 
 \begin{tabular}{c|c|c|c|c}
 	Tolleranza & $ 10\% $ & $ 1\% $ & $ 0.1\% $ & $ 0.01\% $ \\
